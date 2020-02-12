@@ -1,0 +1,21 @@
+    1  ifco
+    2  ip a
+    3  hostnamectl set-hostname node1.example.com
+    4  exit
+    5  firewall-cmd --add-port=0-65535/tcp --permanent
+    6  firewall-cmd --add-port=0-65535/udp  --permanent
+    7  firewall-cmd --reload
+    8  setenforce 0
+    9  sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
+   10  modprobe br_netfilter
+   11  echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+   12  swapoff -a
+   13  vim /etc/fstab 
+   14  vi /etc/fstab 
+   15  vi /etc/yum.repos.d/a.repo
+   16  scp /etc/yum.repos.d/a.repo node2:/etc/yum.repos.d/
+   17  yum  install  docker kubeadm  -y
+   18  systemctl enable --now  docker kubelet
+   19  kubeadm join 192.168.10.38:6443 --token d9kfz8.a9dfkqtoauwkk6mx --discovery-token-ca-cert-hash sha256:b8f904fcfb6dc548d1fb4a85916590072e5562978d5dc801ef64d9c436a56856
+   20  history 
+   21  history >> node1.txt

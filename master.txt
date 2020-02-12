@@ -1,0 +1,34 @@
+    1  ifco
+    2  ip a
+    3  hostnamectl set-hostname station38.example.com
+    4  exit
+    5  ip a
+    6  hostnamectl set-hostname master.example.com
+    7  exit
+    8  firewall-cmd --add-port=0-65535/tcp --permanent
+    9  firewall-cmd --add-port=0-65535/udp  --permanent
+   10  firewall-cmd --reload
+   11  history 
+   12  setenforce 0
+   13  sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
+   14  modprobe br_netfilter
+   15  sysctl -a | grep ipv4
+   16  echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+   17  swapoff -a
+   18  vim /etc/fstab 
+   19  vi /etc/fstab 
+   20  vi /etc/yum.repos.d/a.repo
+   21  yum  install  docker kubeadm  -y
+   22  systemctl enable --now  docker kubelet
+   23  kubeadm  init --pod-network-cidr=192.168.0.0/16
+   24  mkdir -p $HOME/.kube
+   25  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   26  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   27  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+   28  kubeadm get nodes
+   29  kubelet get nodes
+   30  kubectl get nodes
+   31  history 
+   32  scp /etc/kubernetes/admin.conf 192.168.10.241:
+   33  scp /etc/yum.repos.d/a.repo 192.168.10.241:/etc/yum.repos.d/
+   34  history >> master.txt
